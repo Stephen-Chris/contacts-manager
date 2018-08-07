@@ -18,12 +18,9 @@ public class test {
             System.out.println("2. Add a new contact.");
             System.out.println("3. Search a contact by name.");
             System.out.println("4. Delete an existing contact.");
-            System.out.println("5. Exit.\n");
+            System.out.println("5. Exit.");
             System.out.println("Enter an option (1, 2, 3, 4 or 5):");
-
-            //Using Input getInt() method //scanner input
             int userChoice = newIn.getInt();
-            //System.out.println();
 
             if (userChoice == 1) {
                 addressDisplay();
@@ -37,7 +34,6 @@ public class test {
                 System.out.println("Goodbye!");
                 System.exit(0);
             }
-
         }while (true);
 
 //        for (Movie movie : MoviesArray.findAll()) {
@@ -60,22 +56,18 @@ public class test {
 //                System.out.println(output);
 //            }
 //        }
-
-
         //addressSetUp();
     }
 
     public static void addressDisplay(){
         // getting
-
-
         String directory = "address-book";
         String filename = "contacts.text";
 
-        // creating
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
+        // creating
         if(Files.notExists(dataDirectory)) {
             try{
                 Files.createDirectories(dataDirectory);
@@ -91,35 +83,53 @@ public class test {
                 e.printStackTrace();
             }
         }
+
         // Reading
-        List<String> listStuff = null;
+        List<String> contactList = null;
         try {
-            listStuff = Files.readAllLines(dataFile);
+            contactList = Files.readAllLines(dataFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Displays Entire list of names & addresses
+        System.out.println("\n------------------------------");
+        System.out.println("Name           | Phone number");
+        System.out.println("------------------------------");
 
-        for (int i =0; i < listStuff.size(); i++){
-            System.out.println((i + 1) + ": " + listStuff.get(i));
+//        for (String contact : contactList){
+//            String seperator = "";
+//            //System.out.println(contact);
+//            //String[] getWords = contact.split("\\s+");
+//            for(String sep: contact.split("\\s+")){
+//                seperator = seperator + "" + sep;
+//
+//            }
+//            System.out.println(seperator);
+//        }
+
+        for (String contact : contactList){
+            String[] parts = contact.split(" ");
+            String part1 = parts[0] + " " + parts[1];
+            String part2 = parts[2];
+            System.out.println(part1 + " | " + part2 + " |");
         }
+
     }
 
     public static void addContact () {
-        // getting
         Input newIn = new Input();
 
-        String name = newIn.getString("Enter First & Last Name:");
-
-
+        String pName = newIn.getString("Enter First & Last Name: ");
         int pNumber = newIn.getInt("Enter Number: ");
 
+        // getting
         String directory = "address-book";
         String filename = "contacts.text";
 
-        // creating
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
+        // creating
         if(Files.notExists(dataDirectory)) {
             try{
                 Files.createDirectories(dataDirectory);
@@ -127,45 +137,54 @@ public class test {
                 e.printStackTrace();
             }
         }
-        //        // writing
-        List<String> names = new ArrayList<>();
-        names.add(name + " " + pNumber);
 
-        try {                           // NEED THIS TO NOT OVERWRITE FILE!!!
+        if(Files.notExists(dataFile)){
+            try {
+                Files.createFile(dataFile);
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        // writing
+        List<String> names = new ArrayList<>();
+        names.add(pName + " " + pNumber);
+        try {
             Files.write(dataFile, names, StandardOpenOption.APPEND);
         } catch(IOException e) {
             e.printStackTrace();
         }
+        System.out.println("\n------------------------------------");
+        System.out.println("You added: " + pName + " " + pNumber);
+        System.out.println("------------------------------------");
     }
 
     public static void searchContact () {
         Input newIn = new Input();
+        String findName = newIn.getString("Enter First & Last Name: ");
 
-        String findName = newIn.getString("Enter First & Last Name:");
-
+        // getting
         String directory = "address-book";
         String filename = "contacts.text";
 
-        // creating
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
-
-
-        List<String> listStuff = null;
+        // reading
+        List<String> contactList = null;
         try {
-            listStuff = Files.readAllLines(dataFile);
+            contactList = Files.readAllLines(dataFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        for (int i =0; i < listStuff.size(); i++){
-           if (listStuff.get(i).contains(findName)){
-               System.out.println(listStuff.get(i));
-
+        // Searches for user input(findName) against array of addresses(listStuff)
+        for (int i =0; i < contactList.size(); i++){
+           if (contactList.get(i).contains(findName)){
+               System.out.println("\n-------------------------------");
+               System.out.println(contactList.get(i));
+               System.out.println("-------------------------------");
             }
         }
-
     }
 
     public static void deleteContact () {
