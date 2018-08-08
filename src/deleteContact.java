@@ -8,7 +8,7 @@ import java.util.List;
 
 public class deleteContact {
     public static void eraseContact(Path dataFile, Input newIn) {
-        String deleteName = newIn.getString("Fill in name to delete: ");
+        String deleteName = newIn.getString("Fill in name to delete (First and last name): ");
 
         List<String> contactList = null;
         try {
@@ -23,7 +23,9 @@ public class deleteContact {
             String[] parts = contact.split(" ");
             String fullName = parts[0] + " " + parts[1];
             if (fullName.equalsIgnoreCase(deleteName)) {
+                System.out.println("-------------------------------");
                 System.out.println("You deleted: " + deleteName);
+                System.out.println("-------------------------------");
                 continue;
             }
             newList.add(contact);

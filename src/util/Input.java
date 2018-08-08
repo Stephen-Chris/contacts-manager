@@ -15,21 +15,6 @@ public class Input {
         return this.scanner.next();
     }
 
-//    public String getWord(String prompt){
-//        String oneWord;
-//        String userWord = this.scanner.next();
-//
-//        //System.out.println();
-//        try {
-//            oneWord = String.valueOf(userWord);
-//        } catch (Exception e){
-//            System.out.println(e.fillInStackTrace());
-//            System.out.println("Not a valid word, please try again...");
-//            oneWord = getWord(prompt);
-//        }
-//        return oneWord;
-//    }
-
     public String getString(String prompt){
         System.out.print(prompt);
         return this.scanner.nextLine();
@@ -121,12 +106,4 @@ public class Input {
         }
         return realNum;
     }
-//    ========================== Bonus ============================
-//    public int getBinary(){
-//
-//    }
-//
-//    public int getHex(){
-//
-//    }
 }
