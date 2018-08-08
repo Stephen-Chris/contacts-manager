@@ -20,7 +20,9 @@ public class deleteContact {
         // Delete name entered by user
         List<String> newList = new ArrayList<>();
         for (String contact : contactList) {
-            if (contact.contains(deleteName)) {
+            String[] parts = contact.split(" ");
+            String fullName = parts[0] + " " + parts[1];
+            if (fullName.equalsIgnoreCase(deleteName)) {
                 System.out.println("You deleted: " + deleteName);
                 continue;
             }

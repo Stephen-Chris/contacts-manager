@@ -13,17 +13,17 @@ public class displayAll {
             e.printStackTrace();
         }
         // Displays Entire list of names & addresses
-        System.out.println("\n---------------------------");
-        System.out.println("    Name    | Phone number ");
-        System.out.println("---------------------------");
+        System.out.println("\n-------------------------------");
+        System.out.println("     Name    |  Phone number ");
+        System.out.println("-------------------------------");
 
         // Sort through each contact name & number as a String
         for (String contact : contactList){
             // Split name and separate | number |
             String[] parts = contact.split(" ");
-            String part1 = parts[0] + " " + parts[1];
-            String part2 = parts[2];
-            System.out.println(part1 + " | " + part2 + " |");
+            String fullName = parts[0] + " " + parts[1];
+            String telephone = String.valueOf(parts[2]).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
+            System.out.printf("%-12s | %-14s | %n", fullName, telephone);
         }
     }
 }
