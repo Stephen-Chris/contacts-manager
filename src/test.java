@@ -60,14 +60,14 @@ public class test {
     }
 
     public static void addressDisplay(){
-        // getting
+        // Set Path
         String directory = "address-book";
         String filename = "contacts.text";
 
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
-        // creating
+        // Create directory or file it does not exist
         if(Files.notExists(dataDirectory)) {
             try{
                 Files.createDirectories(dataDirectory);
@@ -84,7 +84,7 @@ public class test {
             }
         }
 
-        // Reading
+        // Reading files
         List<String> contactList = null;
         try {
             contactList = Files.readAllLines(dataFile);
@@ -92,9 +92,9 @@ public class test {
             e.printStackTrace();
         }
         // Displays Entire list of names & addresses
-        System.out.println("\n------------------------------");
-        System.out.println("Name           | Phone number");
-        System.out.println("------------------------------");
+        System.out.println("\n---------------------------");
+        System.out.println("    Name    | Phone number ");
+        System.out.println("---------------------------");
 
 //        for (String contact : contactList){
 //            String seperator = "";
@@ -102,18 +102,17 @@ public class test {
 //            //String[] getWords = contact.split("\\s+");
 //            for(String sep: contact.split("\\s+")){
 //                seperator = seperator + "" + sep;
-//
 //            }
 //            System.out.println(seperator);
 //        }
-
+        // Sort through each contact name & number as a String
         for (String contact : contactList){
+            // Split name and separate | number |
             String[] parts = contact.split(" ");
             String part1 = parts[0] + " " + parts[1];
             String part2 = parts[2];
             System.out.println(part1 + " | " + part2 + " |");
         }
-
     }
 
     public static void addContact () {
@@ -122,14 +121,14 @@ public class test {
         String pName = newIn.getString("Enter First & Last Name: ");
         int pNumber = newIn.getInt("Enter Number: ");
 
-        // getting
+        // Set Path
         String directory = "address-book";
         String filename = "contacts.text";
 
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
-        // creating
+        // Create directory or file it does not exist
         if(Files.notExists(dataDirectory)) {
             try{
                 Files.createDirectories(dataDirectory);
@@ -162,7 +161,7 @@ public class test {
         Input newIn = new Input();
         String findName = newIn.getString("Enter First & Last Name: ");
 
-        // getting
+        // Set Path
         String directory = "address-book";
         String filename = "contacts.text";
 
@@ -178,7 +177,7 @@ public class test {
         }
 
         // Searches for user input(findName) against array of addresses(listStuff)
-        for (int i =0; i < contactList.size(); i++){
+        for (int i = 0; i < contactList.size(); i++){
            if (contactList.get(i).contains(findName)){
                System.out.println("\n-------------------------------");
                System.out.println(contactList.get(i));
@@ -188,6 +187,38 @@ public class test {
     }
 
     public static void deleteContact () {
+        Input newIn = new Input();
 
+        String deleteName = newIn.getString("Fill in name to delete: ");
+
+        // Set Path
+        String directory = "address-book";
+        String filename = "contacts.text";
+
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename);
+
+        List<String> contactList = null;
+        try {
+            contactList = Files.readAllLines(dataFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Delete name entered by user
+        List<String> newList = new ArrayList<>();
+        for (String contact : contactList) {
+            if (contact.contains(deleteName)) {
+                System.out.println("You deleted: " + deleteName);
+                continue;
+            }
+            newList.add(contact);
+        }
+
+        try {
+            Files.write(dataFile, newList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
