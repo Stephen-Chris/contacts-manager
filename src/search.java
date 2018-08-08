@@ -1,4 +1,4 @@
-package util;
+import util.Input;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,7 +7,6 @@ import java.util.List;
 
 public class search {
     public static void searchContact(Path dataFile, Input newIn) {
-
         String findName = newIn.getString("Enter First & Last Name: ");
 
         // reading

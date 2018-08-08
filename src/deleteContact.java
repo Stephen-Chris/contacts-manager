@@ -1,4 +1,4 @@
-package util;
+import util.Input;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,8 +8,6 @@ import java.util.List;
 
 public class deleteContact {
     public static void eraseContact(Path dataFile, Input newIn) {
-
-
         String deleteName = newIn.getString("Fill in name to delete: ");
 
         List<String> contactList = null;

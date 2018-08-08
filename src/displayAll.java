@@ -1,5 +1,3 @@
-package util;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,8 +5,6 @@ import java.util.List;
 
 public class displayAll {
     public static void addressDisplay(Path dataFile){
-        // Set Path
-
         // Reading files
         List<String> contactList = null;
         try {

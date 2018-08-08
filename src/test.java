@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
 
 public class test {
     public static void main(String[] args) {
@@ -15,8 +12,6 @@ public class test {
     }
 
     public static void options(Input newIn) {
-
-
         // Set Path
         String directory = "address-book";
         String filename = "contacts.text";
@@ -24,6 +19,7 @@ public class test {
         Path dataDirectory = Paths.get(directory);
         Path dataFile = Paths.get(directory, filename);
 
+        // Create directory and file if it does not exist
         if(Files.notExists(dataDirectory)) {
             try {
                 Files.createDirectory(dataDirectory);
@@ -64,6 +60,4 @@ public class test {
             }
         }while (true);
     }
-
-
 }

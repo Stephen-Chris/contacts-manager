@@ -1,4 +1,4 @@
-package util;
+import util.Input;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,22 +9,24 @@ import java.util.List;
 
 public class addContact {
     public static void newContact(Path dataFile, Input newIn) {
+        String firstN = newIn.getWord("\nEnter First Name: ");
+        newIn.consumeLine();
+        String lastN = newIn.getWord("Enter Last Name: ");
+        newIn.consumeLine();
 
-
-        String pName = newIn.getString("Enter First & Last Name: ");
         int pNumber = newIn.getInt("Enter Number: ");
-
 
         // writing
         List<String> names = new ArrayList<>();
-        names.add(pName + " " + pNumber);
+
+        names.add(firstN + " " + lastN + " " + pNumber);
         try {
             Files.write(dataFile, names, StandardOpenOption.APPEND);
+            System.out.println("\n------------------------------------");
+            System.out.println("You added: " + firstN + " " + lastN + " " + pNumber);
+            System.out.println("------------------------------------");
         } catch(IOException e) {
             e.printStackTrace();
         }
-        System.out.println("\n------------------------------------");
-        System.out.println("You added: " + pName + " " + pNumber);
-        System.out.println("------------------------------------");
     }
 }
